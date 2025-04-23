@@ -16,10 +16,11 @@ const create = async () => {
             throw new Error('FS operation failed');
         })
         .catch(async (error) => {
-            if (!existsSync(fileDirname)) mkdir(fileDirname, { recursive: true });
+            if (!existsSync(fileDirname)) await mkdir(fileDirname, { recursive: true });
             writeFileSync(filePath, 'I am fresh and young', (err) => {
                 if (error) console.error('Error writing file:', err);
             });
+            console.log('fresh.txt filled successfully!');
         });
 };
 
