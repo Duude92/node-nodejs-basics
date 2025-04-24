@@ -12,7 +12,7 @@ const decompress = async () => {
     // Write your code here
     let fileStream = fs.createReadStream(srcName);
     let destStream = fs.createWriteStream(destName);
-    fileStream.pipe(zlib.createGunzip()).pipe(destStream).on("finish", () => console.log("File compressed."));
+    fileStream.pipe(zlib.createGunzip()).pipe(destStream).on("finish", () => console.log("File decompressed."));
 };
 
 await decompress();
