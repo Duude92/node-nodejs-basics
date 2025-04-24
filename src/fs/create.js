@@ -1,7 +1,7 @@
-import { existsSync, constants, writeFileSync } from 'node:fs';
-import { mkdir, access } from 'node:fs/promises';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import {existsSync, constants, writeFileSync, access} from 'node:fs';
+import {mkdir} from 'node:fs/promises';
+import {fileURLToPath} from 'url';
+import {dirname, join} from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,18 +10,17 @@ const filePath = join(fileDirname, 'fresh.txt');
 
 const create = async () => {
     // Write your code here
-    await access(filePath, constants.F_OK)
+    access(filePath, constants.F_OK, async (err) => {
         // If file exists, throw an error
-        .then(() => {
+        if (!err)
             throw new Error('FS operation failed');
-        })
-        .catch(async (error) => {
-            if (!existsSync(fileDirname)) await mkdir(fileDirname, { recursive: true });
-            writeFileSync(filePath, 'I am fresh and young', (err) => {
-                if (error) console.error('Error writing file:', err);
-            });
-            console.log('fresh.txt filled successfully!');
+        if (!existsSync(fileDirname)) await mkdir(fileDirname, {recursive: true});
+        writeFileSync(filePath, 'I am fresh and young', (error) => {
+            if (error) console.error('Error writing file:', error.message);
         });
+        console.log('fresh.txt filled successfully!');
+
+    });
 };
 
 await create();
