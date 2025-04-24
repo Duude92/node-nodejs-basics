@@ -17,9 +17,8 @@ if (random > 0.5) {
 } else {
     fileName = 'b.json';
 }
-
-unknownObject = fs.readFileSync(path.join(__dirname, 'files', fileName), 'utf-8');
-
+// unknownObject = {default: JSON.parse(fs.readFileSync(path.join(__dirname, 'files', fileName), 'utf-8'))};
+unknownObject = await import(`./files/${fileName}`, { with: { type: 'json' } });
 console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
 console.log(`Path segment separator is "${path.sep}"`);
@@ -33,7 +32,7 @@ const myServer = createServerHttp((_, res) => {
 
 const PORT = 3000;
 
-console.log(unknownObject);
+console.log(Object.assign({}, unknownObject));
 
 myServer.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
