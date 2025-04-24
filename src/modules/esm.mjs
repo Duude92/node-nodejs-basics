@@ -17,6 +17,7 @@ if (random > 0.5) {
 } else {
     fileName = 'b.json';
 }
+// Both variants are viable https://discord.com/channels/755676888680366081/1363206860160631114/1365003228994998403
 // unknownObject = {default: JSON.parse(fs.readFileSync(path.join(__dirname, 'files', fileName), 'utf-8'))};
 unknownObject = await import(`./files/${fileName}`, { with: { type: 'json' } });
 console.log(`Release ${release()}`);
