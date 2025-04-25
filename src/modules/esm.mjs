@@ -32,7 +32,7 @@ const myServer = createServerHttp((_, res) => {
 });
 
 const PORT = 3000;
-
+// Assign to emp object prototype to get rid of [Module prototype null] or something
 console.log(Object.assign({}, unknownObject));
 
 myServer.listen(PORT, () => {
