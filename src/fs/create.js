@@ -16,7 +16,7 @@ const create = async () => {
             throw new Error('FS operation failed');
         if (!existsSync(fileDirname)) await mkdir(fileDirname, {recursive: true});
         writeFileSync(filePath, 'I am fresh and young', (error) => {
-            if (error) console.error('Error writing file:', error.message);
+            if (error) throw error;
         });
         console.log('fresh.txt filled successfully!');
 
