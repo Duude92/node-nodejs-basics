@@ -8,6 +8,7 @@ const fileName = path.join(__dirname, 'files', 'fileToWrite.txt');
 
 const write = async () => {
     // Write your code here
+    console.log("Terminal is ready for input.");
     let fileStream = fs.createWriteStream(fileName);
     process.stdin.pipe(fileStream);
 };
