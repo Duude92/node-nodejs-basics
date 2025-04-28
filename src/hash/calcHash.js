@@ -9,9 +9,11 @@ const fileName = path.join(__dirname, 'files', 'fileToCalculateHashFor.txt');
 
 const calculateHash = async () => {
     // Write your code here
-    console.log(crypto.createHash('sha256')
-        .update(fs.readFileSync(fileName, 'utf8'))
-        .digest('hex'));
+    const hash = crypto.createHash('sha256');
+    const input = fs.createReadStream(fileName);
+    const hashSum = input.pipe(hash);
+    hashSum.on('end', () =>process.stdout.write('\n'));
+    hashSum.setEncoding('hex').pipe(process.stdout);
 };
 
 await calculateHash();
